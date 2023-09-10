@@ -32,8 +32,8 @@ const Dashboard = (props) => {
 				</form>
 			</div>
 			<div className="userHistory">
-				<h1>its working 1</h1>
-				{userData.history.length !== 0 && (
+				{/* <h1>its working 1</h1> */}
+				{userData.history && (
 					<div>
 						{userData.history.map((element) => {
 							return (

@@ -1,7 +1,14 @@
 import React, { useState, useEffect } from "react"
+import { useLocation } from "react-router-dom"
+import { useNavigate } from "react-router-dom"
 
 const QuesList = (props) => {
-	// const cat = location.state.userData
+	const location = useLocation()
+	const navigate = useNavigate()
+	//const cat = location.state.cat
+	const cat = "A"
+	//const name = location.state.name
+	const name = "wmo"
 	const [questions, setQuestions] = useState(null)
 	const [answers, setAnswers] = useState(Array(10).fill({ answer: "" }))
 
@@ -30,6 +37,21 @@ const QuesList = (props) => {
 		questions.map((question, index) => {
 			if (question.answer === answers[index].answer) count = count + 1
 		})
+
+		const userData = { name: name, cat: cat, score: count }
+
+		fetch("http://localhost:8000//updStats", {
+			method: "PATCH",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify(userData),
+		})
+			.then((response) => {
+				console.log("test result stored")
+				navigate("/Dashboard")
+			})
+			.catch((error) => {
+				console.error("Error storing score:", error)
+			})
 	}
 
 	return (
